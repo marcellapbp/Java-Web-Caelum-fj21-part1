@@ -8,7 +8,7 @@ import java.util.Calendar;
  *Objective: Try an insert
  * @author marcella
  */
-public class InsertContact 
+public class ContactInsert 
 {
     
     
