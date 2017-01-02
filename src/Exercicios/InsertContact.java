@@ -10,33 +10,19 @@ import java.util.Calendar;
  */
 public class InsertContact 
 {
+    
+    
     public static void main (String [] args) 
     {
-        try(Connection conn = new ConnectionFactory().getConnection()) {
-            
+        Contact contact = new Contact();
+    
+        contact.setName("Caelum");
+        contact.setEmail("contato@caelum.com.br");
+        contact.setAddress("R. Vergueiro 3185");
+        contact.setBirthDate(Calendar.getInstance());
         
-
-        String sql = "insert into contatos (nome, email, endereco, datanasc)"
-                   + "values(?,?,?,?)";
-
-        PreparedStatement pstmt = conn.prepareStatement(sql);
+        ContactDAO dao = new ContactDAO();
         
-        pstmt.setString(1, "Caelum");
-        pstmt.setString(2, "contato@caelum.com.br");
-        pstmt.setString(3, "R. Vergueiro 3185");
-        pstmt.setDate(4, new java.sql.Date(Calendar.getInstance().getTimeInMillis()));
-        
-        pstmt.execute();
-        pstmt.close();
-        
-        System.out.print("Gravado!");
-        
-        conn.close();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        
-        
-        
+        dao.add(contact);
     }
 }
