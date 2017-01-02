@@ -51,16 +51,16 @@ class ContactDAO {
         }
     }
     
-    public Contact SelectContact()
+    public Contact SelectContact(int id)
     {
         Contact contact = new Contact();
         try
         {
         
-            String sql = "select * from contatos";
+            String sql = "select * from contatos where id = ?";
 
             PreparedStatement pstmt = conn.prepareStatement(sql);
-            
+            pstmt.setLong(1, id);
             ResultSet rs = pstmt.executeQuery();
             
             while(rs.next())
