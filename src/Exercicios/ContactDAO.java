@@ -24,11 +24,8 @@ class ContactDAO {
     
     public void add(Contact contact) 
     { 
-      
-        try{
-            
-        
-
+        try
+        {
         String sql = "insert into contatos (nome, email, endereco, datanasc)"
                    + "values(?,?,?,?)";
 
@@ -42,7 +39,7 @@ class ContactDAO {
         pstmt.execute();
         pstmt.close();
         
-        System.out.print("Gravado!");
+        System.out.print("Saved!");
         
         conn.close();
         }catch(SQLException e)
@@ -51,7 +48,7 @@ class ContactDAO {
         }
     }
     
-    public Contact SelectContact(int id)
+    public Contact selectContact(int id)
     {
         Contact contact = new Contact();
         try
@@ -88,7 +85,7 @@ class ContactDAO {
     }
     
     
-    public List<Contact> ContactList()
+    public List<Contact> contactList()
     {
         List<Contact> contacts = new ArrayList<>();
         try
@@ -123,5 +120,55 @@ class ContactDAO {
             throw new RuntimeException(e);
         }
         return contacts;
+    }
+    
+    public void deleteContact (int id)
+    {
+        try
+        {
+        
+            String sql = "delete from contatos where id = ?";
+
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setLong(1, id);
+            
+            pstmt.execute();
+            pstmt.close();
+            conn.close();
+        }catch(SQLException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+    
+    public void updateContact (Contact contact)
+    {
+        try
+        {
+            String sql = "update contatos set "
+                + "nome = ?"
+                + ",email = ?"
+                + ",endereco = ?"
+                + ",datanasc = ?"
+                + "where id = ?";
+
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+
+            pstmt.setString(1, contact.getName());
+            pstmt.setString(2, contact.getEmail());
+            pstmt.setString(3, contact.getAddress());
+            pstmt.setDate(4, new Date( contact.getBirthDate().getTimeInMillis()));
+            pstmt.setLong(5, contact.getId());
+
+            pstmt.execute();
+            pstmt.close();
+
+            System.out.print("Updated!");
+
+            conn.close();
+        }catch(SQLException e)
+        {
+            throw new RuntimeException(e);
+        }
     }
 }

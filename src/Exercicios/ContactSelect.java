@@ -16,7 +16,7 @@ public class ContactSelect
         
         Contact contact;
         
-        contact = dao.SelectContact(3);
+        contact = dao.selectContact(3);
         
         System.out.println("Name:");
         System.out.println(contact.getName());

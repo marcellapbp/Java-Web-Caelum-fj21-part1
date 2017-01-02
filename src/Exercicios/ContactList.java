@@ -16,7 +16,7 @@ public class ContactList
         
         List<Contact> contacts;
         
-        contacts = dao.ContactList();
+        contacts = dao.contactList();
         
         for (Contact contact : contacts) {
             System.out.println("===========================================================");
